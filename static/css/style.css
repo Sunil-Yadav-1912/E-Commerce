@@ -608,8 +608,9 @@ a:hover {
 }
 
 .buy_bt {
-    float: left;
     width: 100%;
+    float: right;
+    text-align: right;
 }
 
 .buy_bt a {

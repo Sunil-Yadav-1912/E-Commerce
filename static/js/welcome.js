@@ -1,7 +1,7 @@
 
 var textarea = $('.term');
 var speed = 50; //Writing speed in milliseconds
-var text = 'sh sunil_yadav.sh';
+var text = 'sh digital-deals.sh';
 
 var i = 0;
 
@@ -53,15 +53,12 @@ function feedbacker() {
     },time);
 }
 
-var output = ["CPU0 microcode updated early to revision 0x1b, date = 2014-05-29",
+var output = ["Registering, Please wait",
 "Initializing cgroup subsys cpuset",
 "Initializing cgroup subsys cpu",
 "Initializing cgroup subsys cpuacct",
 "Command line: BOOT_IMAGE=/vmlinuz-3.19.0-21-generic.efi.signed root=UUID=14ac372e-6980-4fe8-b247-fae92d54b0c5 ro quiet splash acpi_enforce_resources=lax intel_pstate=enable rcutree.rcu_idle_gp_delay=1 nouveau.runpm=0 vt.handoff=7",
 "KERNEL supported cpus:",
-"  Intel GenuineIntel",
-"  AMD AuthenticAMD",
-"  Centaur CentaurHauls",
 "e820: BIOS-provided physical RAM map:",
 "BIOS-e820: [mem 0x0000000000000000-0x000000000009dfff] usable",
 "BIOS-e820: [mem 0x000000000009e000-0x000000000009ffff] reserved",
@@ -818,9 +815,12 @@ var output = ["CPU0 microcode updated early to revision 0x1b, date = 2014-05-29"
 "PCI: Using ACPI for IRQ routing",
 "PCI: pci_cache_line_size set to 64 bytes",
 "e820: reserve RAM buffer [mem 0x0009e000-0x0009ffff]",
-
-"Welcome to our site",
-"Initialising...", ""];
+"Welcome to Digital Deals",
+"",
+"Start shopping now",
+"",
+"",
+"Initialising...", "", ""];
 
 setTimeout(function(){
   window.location.href = "/index";

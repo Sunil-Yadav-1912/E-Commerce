@@ -31,6 +31,8 @@
       <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/6.0.0/intro.min.js" integrity="sha512-mceGQCYWZuRNu27jG8kIrAWT++MIJ1HUEiXy0BTJNkuJEeislqxEZ1KIyfHNMh2YWYAf3oCumvhFV5VYoFfVlA==" crossorigin="anonymous"></script>
 
+      <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/index.css')}}"/>
+
       <!--  -->
       <!-- owl stylesheets -->
       <link href="https://fonts.googleapis.com/css?family=Great+Vibes|Poppins:400,700&display=swap&subset=latin-ext" rel="stylesheet">
@@ -80,19 +82,19 @@
                <div class="containt_main">
                   <div id="mySidenav" class="sidenav">
                      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                     <a href="index">Home</a>
-                     <a href="login">Login</a>
-                     <a href="signup">Signup</a>
-                     <a href="upload">Upload</a>
+                     <a href="{{ url_for('index') }}">Home</a>
+                     <a href="{{ url_for('login') }}">Login</a>
+                     <a href="{{ url_for('signup') }}">Signup</a>
+                     <a href="/upload">Upload</a>
                   </div>
                   <span class="toggle_icon" onclick="openNav()"><img src="{{url_for('static', filename='images/toggle-icon.png')}}"></span>
                   <div class="dropdown">
                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Category 
                      </button>
                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="category/jewellery_items">Jewellery</a>
-                        <a class="dropdown-item" href="category/fashion_items">Fashion</a>
-                        <a class="dropdown-item" href="category/electronic_items">Electronic</a>
+                        <a class="dropdown-item" href="{{ url_for('category', category='jewellery_items') }}">Jewellery</a>
+                        <a class="dropdown-item" href="{{ url_for('category', category='fashion_items') }}">Fashion</a>
+                        <a class="dropdown-item" href="{{ url_for('category', category='electronics_items') }}">Electronic</a>
                     </div>
                   </div>
                   <div class="main">
@@ -120,7 +122,7 @@
                      </div>
                      <div class="login_menu">
                         <ul>
-                           <li><a href="#">
+                           <li><a href="{{ url_for('cart') }}">
                               <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                               <span class="padding_10">Cart</span></a>
                            </li>
@@ -180,38 +182,38 @@
       <!-- fashion section start -->
       <div class="fashion_section">
          <div id="main_slider" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-               <div class="carousel-item active">
-                  <div class="container">
-                     <h1 class="fashion_taital">Man & Woman Fashion</h1>
-                     <div class="fashion_section_2">
-                        <div class="row">
-                            {% for item_key, item in resp.fashion_items.items() %}
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                <h4 class="shirt_text">{{ item.name }}</h4>
-                                <p class="price_text">Price  <span style="color: #262626;">{{ item.price }}</span></p>
-                                <div class="tshirt_img"><img src="{{ url_for('static', filename='images/' + item.image) }}"></div>
-                                <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    <div class="seemore_bt"><a href="#">See More</a></div>
-                                </div>
-                              </div>
-                           </div>
-                           {% endfor %}
-                        </div>
+             <div class="carousel-inner">
+                 <div class="carousel-item active">
+                     <div class="container">
+                         <h1 class="fashion_taital">Man & Woman Fashion</h1>
+                         <div class="fashion_section_2">
+                             <div class="row">
+                                 {% for item_key, item in resp.fashion_items.items() %}
+                                 <div class="col-lg-4 col-sm-4">
+                                     <div class="box_main"> 
+                                         <h4 class="shirt_text">{{ item.name }}</h4>
+                                         <p class="price_text">Price <span style="color: #262626;">{{ item.price }}</span></p>
+                                         <div class="tshirt_img"><img src="{{ url_for('static', filename='images/' + item.image) }}"></div>
+                                         <div class="btn_main">
+                                          <button class="add-to-cart-btn" data-id="{{ item_key }}" data-name="{{ item.name }}" data-image="{{ item.image }}" data-price="{{ item.price }}">Add to Cart</button>
+                                          <div class="buy_bt"><a href="#">Buy Now</a></div>
+                                         </div>
+                                     </div>
+                                 </div>
+                                 {% endfor %}
+                             </div>
+                         </div>
                      </div>
-                  </div>
-               </div>
-            </div>
-            <a class="carousel-control-prev" href="#main_slider" role="button" data-slide="prev">
-            <i class="fa fa-angle-left"></i>
-            </a>
-            <a class="carousel-control-next" href="#main_slider" role="button" data-slide="next">
-            <i class="fa fa-angle-right"></i>
-            </a>
+                 </div>
+             </div>
+             <a class="carousel-control-prev" href="#main_slider" role="button" data-slide="prev">
+                 <i class="fa fa-angle-left"></i>
+             </a>
+             <a class="carousel-control-next" href="#main_slider" role="button" data-slide="next">
+                 <i class="fa fa-angle-right"></i>
+             </a>
          </div>
-      </div>
+     </div>
       <!-- fashion section end -->
       <!-- electronic section start -->
       <div class="fashion_section">
@@ -229,8 +231,8 @@
                                 <p class="price_text">Start Price  <span style="color: #262626;">{{ item.price }}</span></p>
                                 <div class="electronic_img"><img src="{{ url_for('static', filename='images/' + item.image) }}"></div>
                                 <div class="btn_main">
+                                    <button class="add-to-cart-btn" data-id="{{ item_key }}" data-name="{{ item.name }}" data-image="{{ item.image }}" data-price="{{ item.price }}">Add to Cart</button>
                                     <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    <div class="seemore_bt"><a href="#">See More</a></div>
                                 </div>
                               </div>
                            </div>
@@ -265,8 +267,8 @@
                                     <p class="price_text">Start Price  <span style="color: #262626;">{{ item.price }}</span></p>
                                     <div class="jewellery_img"><img src="{{ url_for('static', filename='images/' + item.image) }}"></div>
                                     <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
+                                       <button class="add-to-cart-btn" data-id="{{ item_key }}" data-name="{{ item.name }}" data-image="{{ item.image }}" data-price="{{ item.price }}">Add to Cart</button>
+                                       <div class="buy_bt"><a href="#">Buy Now</a></div>
                                 </div>
                               </div>
                            </div>
@@ -333,5 +335,56 @@
            document.getElementById("mySidenav").style.width = "0";
          }
       </script>
+<script>
+   // Function to handle add to cart button click
+   document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+       btn.addEventListener('click', function() {
+           // Retrieve item details from data attributes
+           const itemId = this.getAttribute('data-id');
+           const itemName = this.getAttribute('data-name');
+           const itemImage = this.getAttribute('data-image');
+           const itemPrice = this.getAttribute('data-price');
+
+           // Send item details via POST request to your API
+           fetch('/add_to_cart', {
+               method: 'POST',
+               headers: {
+                   'Content-Type': 'application/json'
+               },
+               body: JSON.stringify({
+                   id: itemId,
+                   name: itemName,
+                   image: itemImage,
+                   price: itemPrice
+               })
+           })
+           .then(response => response.json()) // Parse response JSON
+           .then(data => {
+               // Display response message
+               alert(data.message); // You can replace alert with any UI notification method
+           })
+           .catch(error => {
+               // Handle error if needed
+               console.error('Error adding item to cart:', error);
+           });
+       });
+   });
+
+   // JavaScript
+      document.addEventListener('DOMContentLoaded', function() {
+         const dropdownToggle = document.querySelector('.dropdown-toggle');
+         const dropdownMenu = document.querySelector('.dropdown-menu');
+         const logoutBtn = document.getElementById('logoutBtn');
+
+         dropdownToggle.addEventListener('click', function() {
+            dropdownMenu.style.display = dropdownMenu.style.display === 'none' ? 'block' : 'none';
+         });
+
+         logoutBtn.addEventListener('click', function() {
+            // Handle logout logic here
+         });
+      });
+
+</script>
    </body>
 </html>

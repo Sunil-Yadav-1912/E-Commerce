@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+
+<style>
+body{
+    background: #ddd;
+    min-height: 100vh;
+    vertical-align: middle;
+    display: flex;
+    font-family: sans-serif;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+.title{
+    margin-bottom: 5vh;
+}
+.card{
+    margin: auto;
+    max-width: 950px;
+    width: 90%;
+    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 1rem;
+    border: transparent;
+}
+@media(max-width:767px){
+    .card{
+        margin: 3vh auto;
+    }
+}
+.cart{
+    background-color: #fff;
+    padding: 4vh 5vh;
+    border-bottom-left-radius: 1rem;
+    border-top-left-radius: 1rem;
+}
+@media(max-width:767px){
+    .cart{
+        padding: 4vh;
+        border-bottom-left-radius: unset;
+        border-top-right-radius: 1rem;
+    }
+}
+.summary{
+    background-color: #ddd;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    padding: 4vh;
+    color: rgb(65, 65, 65);
+}
+@media(max-width:767px){
+    .summary{
+    border-top-right-radius: unset;
+    border-bottom-left-radius: 1rem;
+    }
+}
+.summary .col-2{
+    padding: 0;
+}
+.summary .col-10
+{
+    padding: 0;
+}.row{
+    margin: 0;
+}
+.title b{
+    font-size: 1.5rem;
+}
+.main{
+    margin: 0;
+    padding: 2vh 0;
+    width: 100%;
+}
+.col-2, .col{
+    padding: 0 1vh;
+}
+a{
+    padding: 0 1vh;
+}
+.close{
+    margin-left: auto;
+    font-size: 0.7rem;
+}
+img{
+    width: 3.5rem;
+}
+.back-to-shop{
+    margin-top: 4.5rem;
+}
+h5{
+    margin-top: 4vh;
+}
+hr{
+    margin-top: 1.25rem;
+}
+form{
+    padding: 2vh 0;
+}
+select{
+    border: 1px solid rgba(0, 0, 0, 0.137);
+    padding: 1.5vh 1vh;
+    margin-bottom: 4vh;
+    outline: none;
+    width: 100%;
+    background-color: rgb(247, 247, 247);
+}
+input{
+    border: 1px solid rgba(0, 0, 0, 0.137);
+    padding: 1vh;
+    margin-bottom: 4vh;
+    outline: none;
+    width: 100%;
+    background-color: rgb(247, 247, 247);
+}
+input:focus::-webkit-input-placeholder
+{
+      color:transparent;
+}
+.btn{
+    background-color: #000;
+    border-color: #000;
+    color: white;
+    width: 100%;
+    font-size: 0.7rem;
+    margin-top: 4vh;
+    padding: 1vh;
+    border-radius: 0;
+}
+.btn:focus{
+    box-shadow: none;
+    outline: none;
+    box-shadow: none;
+    color: white;
+    -webkit-box-shadow: none;
+    -webkit-user-select: none;
+    transition: none; 
+}
+.btn:hover{
+    color: white;
+}
+a{
+    color: black; 
+}
+a:hover{
+    color: black;
+    text-decoration: none;
+}
+ #code{
+    background-image: linear-gradient(to left, rgba(255, 255, 255, 0.253) , rgba(255, 255, 255, 0.185)), url("https://img.icons8.com/small/16/000000/long-arrow-right.png");
+    background-repeat: no-repeat;
+    background-position-x: 95%;
+    background-position-y: center;
+}
+
+#spinner{  
+           
+           animation: spin 1s linear infinite;
+           color:red;
+       }
+         
+       @keyframes spin {
+           100% {
+               transform: rotate(360deg);
+           }
+       }
+.inline{
+   display: flex;
+}
+.spinner i{
+   margin-top: 10px;
+   margin-left: 50px;
+}
+</style>
+<body>
+<div class="card">
+    <div class="row">
+        <div class="col-md-8 cart">
+            
+            <div class="title">
+                <div class="row">
+                    <div class="col"><h4><b>Shopping Cart</b></h4></div>
+                    <div class="col align-self-center text-right text-muted">{{ resp|length }} items</div>
+                </div>
+            </div>    
+         
+            {% for item_key, item in resp.items() %}
+            <div class="row border-top border-bottom">
+                <div class="row main align-items-center">
+                    <div class="col-2"><span id="image-{{ item_key }}" style="display: none;">{{ item.image }}</span><img class="img-fluid" src="{{ url_for('static', filename='images/' + item.image) }}"></div>
+                    <div class="col">
+                        <div class="row text-muted"><span id="name-{{ item_key }}">{{ item.name }}</span></div>
+                        <div class="row"><span id="description-{{ item_key }}">{{ item.description }}</span></div>
+                    </div>
+                    <div class="col">
+                        <button class="quantity-btn" data-item-id="{{ item_key }}" data-increment="-">-</button>
+                        <span id="quantity-{{ item_key }}">1</span>
+                        <button class="quantity-btn" data-item-id="{{ item_key }}" data-increment="+">+</button>
+                    </div>
+                    <div class="col"><span id="price-{{ item_key }}">{{ item.price }}</span> <span class="close">&#10005;</span></div>
+                </div>
+            </div>
+            {% endfor %}
+        
+            <div class="back-to-shop"><a href="{{ url_for('index') }}">&leftarrow;</a><span class="text-muted">Back to shop</span></div>
+        </div>
+        
+        <div class="col-md-4 summary">
+            <div><h5><b>Summary</b></h5></div>
+            <hr>
+            <div class="row">
+                <div class="col" style="padding-left:0;">ITEMS <span id="item-count">{{ resp|length }}</span></div>
+                <div class="col text-right"><span id="total-amount">{{ initialTotal }}</span></div>
+            </div>
+            <form>
+                <p>SHIPPING</p>
+                <select><option class="text-muted">Standard-Delivery- 5.00</option></select>
+                <p>GIVE CODE</p>
+                <input id="code" placeholder="Enter your code">
+            </form>
+            <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
+                <div class="col">TOTAL PRICE</div>
+                <div class="col text-right"><span id="total-amount-2">{{ initialTotal }}</span></div>
+            </div>
+            <div class="inline">
+                <p class="spinner" id="spinner" style="display: none;"><i class="fa fa-spinner fa-2x"></i></p>
+            </div>
+            <button id="buyNowBtn" class="btn">BUY NOW</button>
+           
+        </div>
+    </div>
+    
+</div>
+</body>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+    const cartData = {{ resp | tojson | safe }};
+
+    // Function to calculate total amount
+    function calculateTotalAmount() {
+        let total = 0;
+        for (const itemId in cartData) {
+            const item = cartData[itemId];
+            const priceElement = document.getElementById(`price-${itemId}`);
+            total += parseFloat(priceElement.textContent.replace('$', ''));
+        }
+        return total.toFixed(2);
+    }
+
+    // Function to calculate total quantity
+    function calculateTotalQuantity() {
+        let itemCount = 0;
+        for (const itemId in cartData) {
+            const item = cartData[itemId];
+            const quantityElement = document.getElementById(`quantity-${itemId}`);
+            const quantity = parseInt(quantityElement.textContent.trim());
+            itemCount += quantity;
+        }
+        return itemCount;
+    }
+
+    // Update total quantity and amount on page load
+    window.addEventListener('load', function() {
+        const totalAmountElement = document.getElementById('total-amount');
+        const totalAmountElement2 = document.getElementById('total-amount-2');
+        const itemCountElement = document.getElementById('item-count');
+        totalAmountElement.textContent = '$' + calculateTotalAmount();
+        totalAmountElement2.textContent = '$' + calculateTotalAmount();
+        itemCountElement.textContent = calculateTotalQuantity();
+    });
+
+    // Add event listeners to quantity buttons
+    document.querySelectorAll('.quantity-btn').forEach(button => {
+        button.addEventListener('click', function() {
+
+            const itemId = this.getAttribute('data-item-id');
+            const increment = this.getAttribute('data-increment');
+            const quantityElement = document.getElementById(`quantity-${itemId}`);
+            const priceElement = document.getElementById(`price-${itemId}`);
+            let quantity = parseInt(quantityElement.textContent);
+            let price = parseFloat(priceElement.textContent.replace('$', '')); // Remove currency symbol
+
+            // Retrieve item object from cartData
+            const item = cartData[itemId];
+
+            if (increment === '-') {
+                if (quantity > 1) {
+                    quantity--;
+                    price -= parseFloat(item.price.replace('$', '')); // Remove currency symbol
+                }
+            } else {
+                quantity++;
+                price += parseFloat(item.price.replace('$', '')); // Remove currency symbol
+            }
+
+            quantityElement.textContent = quantity;
+            priceElement.textContent = '$' + price.toFixed(2); // Add currency symbol back
+
+            // Update total amount and quantity
+            const totalAmountElement = document.getElementById('total-amount');
+            const totalAmountElement2 = document.getElementById('total-amount-2');
+            const itemCountElement = document.getElementById('item-count');
+            totalAmountElement.textContent = '$' + calculateTotalAmount();
+            totalAmountElement2.textContent = '$' + calculateTotalAmount();
+            itemCountElement.textContent = calculateTotalQuantity();
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+    const buyNowBtn = document.getElementById('buyNowBtn');
+
+    buyNowBtn.addEventListener('click', function() {
+        const spinner = document.getElementById('spinner');
+        spinner.style.display = 'block';
+        
+        const items = [];
+        const totalAmountText = document.getElementById('total-amount').textContent;
+        var totalAmount = parseFloat(totalAmountText.replace('$', ''));
+    
+        // Iterate over each item in the cart
+        document.querySelectorAll('.quantity-btn').forEach(button => {
+            const itemId = button.getAttribute('data-item-id');
+            const quantity = parseInt(document.getElementById(`quantity-${itemId}`).textContent);
+            // const price = parseFloat(document.getElementById(`price-${itemId}`).textContent);
+            const name = document.getElementById(`name-${itemId}`).textContent; // Get the name of the item
+            const image = document.getElementById(`image-${itemId}`).textContent; // Get the image source of the item
+            const priceElement = document.getElementById(`price-${itemId}`);
+            const price = parseFloat(priceElement.textContent.replace('$', ''));
+            // totalAmount = quantity * price ;
+            items.push({ itemId, quantity, price, name, image }); 
+        });
+
+        const shipping = document.querySelector('select').value;
+        const discountCode = document.getElementById('code').value;
+
+        // Construct the data object to send to the API
+        const data = {
+            items,
+            totalAmount,
+            shipping,
+            discountCode
+        };
+  
+
+        // Make an AJAX POST request to your API endpoint
+        fetch('/order', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            // body: JSON.stringify(data)
+            body: JSON.stringify({
+                   items: items,
+                   totalAmount: totalAmount,
+                   shipping: shipping,
+                   discountCode: discountCode
+            })
+        })
+        .then(response => {
+            spinner.style.display = 'none';
+
+            if (response.ok) {
+                // Redirect to another page if response is successful
+                window.location.href = '/order-confirmed'; // Replace '/success-page' with the URL of the page you want to redirect to
+            } else {
+                // Handle other response statuses
+                alert('Error: ' + response.message);
+            }
+        })
+        .catch(error => {
+            spinner.style.display = 'none';
+
+            // Handle error
+            console.error('Error:', error);
+            // Optionally, display an error message to the user
+        });
+    });
+});
+</script>
+
+
+
+</html>

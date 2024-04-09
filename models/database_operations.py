@@ -51,7 +51,32 @@ class database_operations:
         db.child(path).delete()
         return True
     
-    def query_data(self,path,data):
+    def find_by_key(self, path, key):
+        """
+        Find a record in Firebase Realtime Database by its key.
+        :param path: Path to the collection/node in the database (e.g., 'digital-deals/users')
+        :param key: Key of the document to find
+        :return: Tuple containing status code (1 for success, 0 for failure) and the document data if found, None otherwise
+        """
+        db = Connection.get_connection()
+        snapshot = db.child(path).child(key).get()
+        if snapshot:
+            return 1, snapshot
+        else:
+            return 0, "Record not found"
+
+    def delete_by_key(self, path, key):
+        """
+        Delete a record from Firebase Realtime Database by its key.
+        :param path: Path to the collection/node in the database (e.g., 'digital-deals/users')
+        :param key: Key of the document to delete
+        :return: True if delete successful, False otherwise
+        """
+        db = Connection.get_connection()
+        db.child(path).child(key).delete()
+        return True
+    
+    def query_data_user(self,path,data):
         """
         Query data from Firebase Realtime Database.
         :param path: Path to the collection/node in the database
@@ -66,4 +91,4 @@ class database_operations:
         else :
             return 0,"User Doesn't Exists"
 
-        return 1,val['username']
+        return 1,val,key

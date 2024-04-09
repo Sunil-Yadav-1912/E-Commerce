@@ -1,5 +1,6 @@
-from flask import Flask,request,render_template, redirect, url_for, session
+from flask import Flask,request,render_template, redirect, url_for, session, jsonify
 from controllers import IndexController as main
+from controllers import EmailController as email
 #Flask initialization
 app = Flask(__name__)
 app.secret_key = "ecommerce"
@@ -63,19 +64,128 @@ def category(category):
         return render_template('error.html', message=resp)
 
     else:
-        return render_template("category.html", resp=resp,category=category)
+        username = session['username']
+        return render_template("category.html", resp=resp,category=category,username=username)
+    
+@app.route('/cart')
+def cart():
+    data = {
+        "username": session['username']
+    }
 
-@app.route("/jewellery")
-def jewellery():
-    return render_template("jewellery.html")
+    success,resp = main.showCart(data)
+    if success != 1:
+        # return redirect(url_for('error', message=resp))
+        return render_template('error.html', message=resp)
 
-@app.route("/fashion")
-def fashion():
-    return render_template("fashion.html")
+    else:
+        username = session['username']
+        # resp = {
+        # "item1": {
+        #     "image": "tshirt-img.png",
+        #     "name": "Man T-shirt",
+        #     "price": "$30"
+        # },
+        # "item2": {
+        #     "image": "dress-shirt-img.png",
+        #     "name": "Man-shirt",
+        #     "price": "$30"
+        # },
+        # Add more items as needed
+    # }
+        return render_template("cart.html", resp=resp,username=username)
 
-@app.route("/electronic")
-def electronic():
-    return render_template("electronic.html")
+@app.route('/add_to_cart', methods=['POST'])
+def add_to_cart():
+    # Get item details from the POST request
+    data = request.json
+    item_id = data.get('id')
+    item_name = data.get('name')
+    item_image = data.get('image')
+    item_price = data.get('price')
+    
+    # Add the item to the cart
+    cart_item = {
+        'id': item_id,
+        'name': item_name,
+        'image': item_image,
+        'price': item_price
+    }
+    cart = []
+
+    cart.append(cart_item)
+    data = {
+        "username": session['username']
+    }    
+    success,resp = main.addToCart(cart_item,data)
+    if success != 1:
+        # return redirect(url_for('error', message=resp))
+        return render_template('error.html', message=resp)
+
+    else:
+        # username = session['username']
+        # return render_template("index.html", resp=resp,category=category,username=username)
+        return jsonify({'message': 'Item added to cart successfully'}), 200
+    
+
+@app.route('/order', methods=['POST'])
+def order():
+    # Get the order data from the request
+    order_data = request.json
+
+    processed_keys = set()
+    orders = []
+
+    cart_order = {
+        'items': order_data.get('items'),
+        'totalAmount': order_data.get('totalAmount'),
+        'shipping': order_data.get('shipping'),
+        'discountCode': order_data.get('discountCode')
+    }
+
+
+    for item in cart_order['items']:
+
+        if item['itemId'] in processed_keys:
+            continue  # Skip if the item key has already been processed
+        processed_keys.add(item['itemId'])
+    
+        item_name = item['name']
+        item_price = item['price']
+        print(f"Item: {item_name}, Price: ${item_price}")
+        order = {
+            'key': item['itemId'],
+            'quantity': item['quantity'],
+            'name': item['name'],
+            'price': item['price'],
+            'image': item['image'],
+            'shipping': cart_order['shipping'],
+            'discountCode': cart_order['discountCode'],
+        }
+
+
+    
+    orders.append(order)
+
+    resp = email.send_order_email(cart_order)
+    data = {
+        "username": session['username']
+    }    
+    success,resp = main.addToOrders(orders,data)
+    if success != 1:
+        # return redirect(url_for('error', message=resp))
+        return render_template('error.html', message=resp)
+    else:
+        # username = session['username']
+        # return render_template("index.html", resp=resp,category=category,username=username)
+        return jsonify({'message': 'Order added successfully'}), 200
+
+
+@app.route("/order-confirmed")
+def order_confirmed():
+    return render_template("order_confirmed.html")
+
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5006, debug=True)

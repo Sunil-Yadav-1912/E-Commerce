@@ -28,7 +28,13 @@
       <!-- fonts -->
       <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
       <!-- font awesome -->
-      <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/font-awesome.min.css')}}"/>
+      <!-- <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/font-awesome.min.css')}}"/> -->
+      <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/>
+
+      <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/>
+      <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/index.css')}}"/>
+
+
       <!--  -->
       <!-- owl stylesheets -->
       <link href="https://fonts.googleapis.com/css?family=Great+Vibes|Poppins:400,700&display=swap&subset=latin-ext" rel="stylesheet">
@@ -77,20 +83,20 @@
             <div class="container">
                <div class="containt_main">
                   <div id="mySidenav" class="sidenav">
-                     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                     <a href="index.html">Home</a>
-                     <a href="login">Login</a>
-                     <a href="signup">Signup</a>
-                     <a href="upload">Upload</a>
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                    <a href="{{ url_for('index') }}">Home</a>
+                    <a href="{{ url_for('login') }}">Login</a>
+                    <a href="{{ url_for('signup') }}">Signup</a>
+                    <a href="/upload">Upload</a>
                   </div>
                   <span class="toggle_icon" onclick="openNav()"><img src="{{url_for('static', filename='images/toggle-icon.png')}}"></span>
                   <div class="dropdown">
                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Category 
                      </button>
                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="category/jewellery_items">Jewellery</a>
-                        <a class="dropdown-item" href="category/fashion_items">Fashion</a>
-                        <a class="dropdown-item" href="category/electronic_items">Electronic</a>
+                        <a class="dropdown-item" href="{{ url_for('category', category='jewellery_items') }}">Jewellery</a>
+                        <a class="dropdown-item" href="{{ url_for('category', category='fashion_items') }}">Fashion</a>
+                        <a class="dropdown-item" href="{{ url_for('category', category='electronics_items') }}">Electronic</a>
                     </div>
                   </div>
                   <div class="main">
@@ -118,14 +124,19 @@
                      </div>
                      <div class="login_menu">
                         <ul>
-                           <li><a href="#">
-                              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                              <span class="padding_10">Cart</span></a>
-                           </li>
-                           <li><a href="#">
-                              <i class="fa fa-user" aria-hidden="true"></i>
-                              <span class="padding_10">{{ username }}</span></a>
-                           </li>
+                            <li><a href="{{ url_for('cart') }}">
+                                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                <span class="padding_10">Cart</span></a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    <span class="padding_10">{{ username }}</span>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <button id="logoutBtn">Logout</button>
+                                </div>
+                            </li>
                         </ul>
                      </div>
                   </div>
