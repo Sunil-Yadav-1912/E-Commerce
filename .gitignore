@@ -1,1 +1,6 @@
 key.json
+__pycache__/config.cpython-37.pyc
+controllers/__pycache__/EmailController.cpython-37.pyc
+controllers/__pycache__/IndexController.cpython-37.pyc
+models/__pycache__/connection.cpython-37.pyc
+models/__pycache__/database_operations.cpython-37.pyc
