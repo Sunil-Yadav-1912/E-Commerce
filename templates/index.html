@@ -9,7 +9,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
       <!-- site metas -->
-      <title>Eflyer</title>
+      <title>Digital Deals</title>
       <meta name="keywords" content="">
       <meta name="description" content="">
       <meta name="author" content="">
@@ -67,7 +67,7 @@
             <div class="container">
                <div class="row">
                   <div class="col-sm-12">
-                     <div class="logo"><a href="index.html"><img src="{{url_for('static', filename='images/logo_old.png')}}"></a></div>
+                     <div class="logo"><a href="index.html"><img src="{{url_for('static', filename='images/dd_logo_new.png')}}"></a></div>
                      <!-- <a target="_top" href="https://flamingtext.com/" ><img src="https://blog.flamingtext.com/blog/2024/03/16/flamingtext_com_1710582487_29928817.png" border="0" alt="Logo Design by FlamingText.com" title="Logo Design by FlamingText.com"></a> -->
                      <!-- <br/>Logo Design by <a href="https://flamingtext.com/" >FlamingText.com</a> -->
 
@@ -109,27 +109,26 @@
                      </div>
                   </div>
                   <div class="header_box">
-                     <div class="lang_box ">
-                        <a href="#" title="Language" class="nav-link" data-toggle="dropdown" aria-expanded="true">
-                        <img src="{{url_for('static', filename='images/flag-uk.png')}}" alt="flag" class="mr-2 " title="United Kingdom"> English <i class="fa fa-angle-down ml-2" aria-hidden="true"></i>
-                        </a>
-                        <div class="dropdown-menu ">
-                           <a href="#" class="dropdown-item">
-                           <img src="{{url_for('static', filename='images/flag-france.png')}}" class="mr-2" alt="flag">
-                           French
-                           </a>
-                        </div>
-                     </div>
                      <div class="login_menu">
                         <ul>
+                           <li><a href="{{ url_for('myorders') }}">
+                              <i class="fa fa-truck" aria-hidden="true"></i>
+                              <span class="padding_15">Orders</span></a>
+                           </li>
                            <li><a href="{{ url_for('cart') }}">
                               <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                              <span class="padding_10">Cart</span></a>
+                              <span class="padding_15">Cart</span></a>
                            </li>
-                           <li><a href="#">
+                           <div class="dropdown">
+                              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;{{ username }} </button>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                 <a class="dropdown-item">Profile</a>
+                              </div>
+                           </div>
+                           <!-- <li><a href="#">
                               <i class="fa fa-user" aria-hidden="true"></i>
                               <span class="padding_10">{{ username }}</span></a>
-                           </li>
+                           </li> -->
                         </ul>
                      </div>
                   </div>
@@ -196,7 +195,7 @@
                                          <div class="tshirt_img"><img src="{{ url_for('static', filename='images/' + item.image) }}"></div>
                                          <div class="btn_main">
                                           <button class="add-to-cart-btn" data-id="{{ item_key }}" data-name="{{ item.name }}" data-image="{{ item.image }}" data-price="{{ item.price }}">Add to Cart</button>
-                                          <div class="buy_bt"><a href="#">Buy Now</a></div>
+                                          <button class="more-info-btn" data-id="{{ item_key }}" data-name="{{ item.name }}" data-image="{{ item.image }}" data-price="{{ item.price }}" data-description="{{ item.description }}">More Info</button>
                                          </div>
                                      </div>
                                  </div>
@@ -232,7 +231,7 @@
                                 <div class="electronic_img"><img src="{{ url_for('static', filename='images/' + item.image) }}"></div>
                                 <div class="btn_main">
                                     <button class="add-to-cart-btn" data-id="{{ item_key }}" data-name="{{ item.name }}" data-image="{{ item.image }}" data-price="{{ item.price }}">Add to Cart</button>
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
+                                    <button class="more-info-btn" data-id="{{ item_key }}" data-name="{{ item.name }}" data-image="{{ item.image }}" data-price="{{ item.price }}" data-description="{{ item.description }}">More Info</button>
                                 </div>
                               </div>
                            </div>
@@ -268,10 +267,10 @@
                                     <div class="jewellery_img"><img src="{{ url_for('static', filename='images/' + item.image) }}"></div>
                                     <div class="btn_main">
                                        <button class="add-to-cart-btn" data-id="{{ item_key }}" data-name="{{ item.name }}" data-image="{{ item.image }}" data-price="{{ item.price }}">Add to Cart</button>
-                                       <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                </div>
+                                       <button class="more-info-btn" data-id="{{ item_key }}" data-name="{{ item.name }}" data-image="{{ item.image }}" data-price="{{ item.price }}" data-description="{{ item.description }}">More Info</button>
+                                    </div>
+                                 </div>
                               </div>
-                           </div>
                            {% endfor %}
                         </div>
                      </div>
@@ -292,7 +291,7 @@
       <!-- footer section start -->
       <div class="footer_section layout_padding">
          <div class="container">
-            <div class="footer_logo"><a href="index.html"><img src="{{url_for('static', filename='images/footer-logo.png')}}"></a></div>
+            <div class="footer_logo"><a href="index.html"><img src="{{url_for('static', filename='images/dd_logo_new.png')}}"></a></div>
             <div class="input_bt">
                <input type="text" class="mail_bt" placeholder="Your Email" name="Your Email">
                <span class="subscribe_bt" id="basic-addon2"><a href="#">Subscribe</a></span>
@@ -318,6 +317,7 @@
       </div>
       <!-- copyright section end -->
       <!-- Javascript files-->
+
       <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
       <script src="{{url_for('static', filename='js/popper.min.js')}}"></script>
       <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
@@ -326,65 +326,7 @@
       <!-- sidebar -->
       <script src="{{url_for('static', filename='js/jquery.mCustomScrollbar.concat.min.js')}}"></script>
       <script src="{{url_for('static', filename='js/custom.js')}}"></script>
-      <script>
-         function openNav() {
-           document.getElementById("mySidenav").style.width = "250px";
-         }
-         
-         function closeNav() {
-           document.getElementById("mySidenav").style.width = "0";
-         }
-      </script>
-<script>
-   // Function to handle add to cart button click
-   document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
-       btn.addEventListener('click', function() {
-           // Retrieve item details from data attributes
-           const itemId = this.getAttribute('data-id');
-           const itemName = this.getAttribute('data-name');
-           const itemImage = this.getAttribute('data-image');
-           const itemPrice = this.getAttribute('data-price');
+      <script src="{{url_for('static', filename='js/index.js')}}"></script>
 
-           // Send item details via POST request to your API
-           fetch('/add_to_cart', {
-               method: 'POST',
-               headers: {
-                   'Content-Type': 'application/json'
-               },
-               body: JSON.stringify({
-                   id: itemId,
-                   name: itemName,
-                   image: itemImage,
-                   price: itemPrice
-               })
-           })
-           .then(response => response.json()) // Parse response JSON
-           .then(data => {
-               // Display response message
-               alert(data.message); // You can replace alert with any UI notification method
-           })
-           .catch(error => {
-               // Handle error if needed
-               console.error('Error adding item to cart:', error);
-           });
-       });
-   });
-
-   // JavaScript
-      document.addEventListener('DOMContentLoaded', function() {
-         const dropdownToggle = document.querySelector('.dropdown-toggle');
-         const dropdownMenu = document.querySelector('.dropdown-menu');
-         const logoutBtn = document.getElementById('logoutBtn');
-
-         dropdownToggle.addEventListener('click', function() {
-            dropdownMenu.style.display = dropdownMenu.style.display === 'none' ? 'block' : 'none';
-         });
-
-         logoutBtn.addEventListener('click', function() {
-            // Handle logout logic here
-         });
-      });
-
-</script>
    </body>
 </html>

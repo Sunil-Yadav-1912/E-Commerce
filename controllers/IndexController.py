@@ -47,6 +47,37 @@ def showCart(data):
         return 0,"Your cart is empty."
     return success,resp['cart']
 
+def showOrders(data):
+    path = "digital-deals/users"
+
+    success,resp,key = database().query_data_user(path,data)
+    print(resp)
+    if 'orders' not in resp or len(resp['orders']) == 0:
+        return 0,"Your orders list is empty."
+    return success,resp['orders']
+
+def orderCancel(data):
+    path = "digital-deals/users"
+
+    success,resp,key = database().query_data_user(path,data)
+
+    if success == 1 :
+
+        # Iterate over each order
+        if 'orderId' in data:
+
+            path = "digital-deals/users/"+key+"/orders" 
+            delete = database().delete_by_key(path,data['orderId'])
+
+            print(delete)
+                
+            return 1,"success"
+        else:
+            return 0,"Failed"
+    else:
+        return 0,"Failed"
+
+
 def addToCart(cart_item,data):
     path = "digital-deals/users"
 

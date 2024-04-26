@@ -39,7 +39,8 @@ def login_form():
         return render_template('error_page.html', message=resp)
     else:
         session['username'] = resp
-        return render_template("welcome.html", username=resp)
+        text = "Bringing you the goods…"
+        return render_template("welcome.html", text=text)
     
 @app.route('/signup-form', methods=['POST'])
 def signup_form():
@@ -53,7 +54,8 @@ def signup_form():
         return render_template('error_page.html', message=resp)
     else:
         session['username'] = username
-        return render_template("welcome.html", username=username)
+        text = "Bringing you the goods…"
+        return render_template("welcome.html", text=text)
 
 
 @app.route('/category/<category>')
@@ -80,21 +82,72 @@ def cart():
 
     else:
         username = session['username']
-        # resp = {
-        # "item1": {
-        #     "image": "tshirt-img.png",
-        #     "name": "Man T-shirt",
-        #     "price": "$30"
-        # },
-        # "item2": {
-        #     "image": "dress-shirt-img.png",
-        #     "name": "Man-shirt",
-        #     "price": "$30"
-        # },
-        # Add more items as needed
-    # }
         return render_template("cart.html", resp=resp,username=username)
 
+@app.route('/more-info', methods=['POST'])
+def moreInfo():
+    data = request.json
+    itemId = data.get('itemId')
+
+    item_name = data.get('name')
+    item_image = data.get('image')
+    item_price = data.get('price')
+    item_description = data.get('description')
+
+    
+    # Add the item to the cart
+    item = {
+        'id': itemId,
+        'name': item_name,
+        'image': item_image,
+        'price': item_price,
+        'description': item_description,
+    }
+    items_dict = {
+        itemId: item
+    }
+
+    data = {
+        "username": session['username']
+    }    
+
+    username = session['username']
+    return render_template("info.html", resp=items_dict)
+    
+
+@app.route('/myorders')
+def myorders():
+    data = {
+        "username": session['username']
+    }
+
+    success,resp = main.showOrders(data)
+    if success != 1:
+        # return redirect(url_for('error', message=resp))
+        return render_template('error.html', message=resp)
+
+    else:
+        username = session['username']
+        return render_template("myorders.html", resp=resp,username=username)
+
+
+@app.route('/order-cancel', methods=['POST'])
+def orderCancel():
+    # Get the order data from the request
+    order_data = request.json
+
+    data = {
+        "username": session['username'],
+        "orderId": order_data.get('orderId')
+
+    }
+    success,resp = main.orderCancel(data)
+  
+    if success != 1:
+        return render_template('error.html', message=resp)
+    else:
+        return jsonify({'message': 'Order Cancelled successfully'}), 200
+    
 @app.route('/add_to_cart', methods=['POST'])
 def add_to_cart():
     # Get item details from the POST request
@@ -123,8 +176,6 @@ def add_to_cart():
         return render_template('error.html', message=resp)
 
     else:
-        # username = session['username']
-        # return render_template("index.html", resp=resp,category=category,username=username)
         return jsonify({'message': 'Item added to cart successfully'}), 200
     
 
@@ -173,17 +224,15 @@ def order():
     }    
     success,resp = main.addToOrders(orders,data)
     if success != 1:
-        # return redirect(url_for('error', message=resp))
         return render_template('error.html', message=resp)
     else:
-        # username = session['username']
-        # return render_template("index.html", resp=resp,category=category,username=username)
         return jsonify({'message': 'Order added successfully'}), 200
 
 
 @app.route("/order-confirmed")
 def order_confirmed():
-    return render_template("order_confirmed.html")
+    text = "Confirming Your Order"
+    return render_template("welcome.html",text=text)
 
 
 

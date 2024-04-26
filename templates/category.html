@@ -111,32 +111,26 @@
                      </div>
                   </div>
                   <div class="header_box">
-                     <div class="lang_box ">
-                        <a href="#" title="Language" class="nav-link" data-toggle="dropdown" aria-expanded="true">
-                        <img src="{{url_for('static', filename='images/flag-uk.png')}}" alt="flag" class="mr-2 " title="United Kingdom"> English <i class="fa fa-angle-down ml-2" aria-hidden="true"></i>
-                        </a>
-                        <div class="dropdown-menu ">
-                           <a href="#" class="dropdown-item">
-                           <img src="{{url_for('static', filename='images/flag-france.png')}}" class="mr-2" alt="flag">
-                           French
-                           </a>
-                        </div>
-                     </div>
                      <div class="login_menu">
                         <ul>
-                            <li><a href="{{ url_for('cart') }}">
-                                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                <span class="padding_10">Cart</span></a>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa fa-user" aria-hidden="true"></i>
-                                    <span class="padding_10">{{ username }}</span>
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <button id="logoutBtn">Logout</button>
-                                </div>
-                            </li>
+                           <li><a href="{{ url_for('myorders') }}">
+                              <i class="fa fa-truck" aria-hidden="true"></i>
+                              <span class="padding_15">Orders</span></a>
+                           </li>
+                           <li><a href="{{ url_for('cart') }}">
+                              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                              <span class="padding_15">Cart</span></a>
+                           </li>
+                           <div class="dropdown">
+                              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;{{ username }} </button>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                 <a class="dropdown-item">Profile</a>
+                              </div>
+                           </div>
+                           <!-- <li><a href="#">
+                              <i class="fa fa-user" aria-hidden="true"></i>
+                              <span class="padding_10">{{ username }}</span></a>
+                           </li> -->
                         </ul>
                      </div>
                   </div>
@@ -204,9 +198,10 @@
                                 <p class="price_text">Price  <span style="color: #262626;">{{ item.price }}</span></p>
                                 <div class="tshirt_img"><img src="{{ url_for('static', filename='images/' + item.image) }}"></div>
                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    <div class="seemore_bt"><a href="#">See More</a></div>
-                                </div>
+                                    <button class="add-to-cart-btn" data-id="{{ item_key }}" data-name="{{ item.name }}" data-image="{{ item.image }}" data-price="{{ item.price }}">Add to Cart</button>
+                                    <button class="more-info-btn" data-id="{{ item_key }}" data-name="{{ item.name }}" data-image="{{ item.image }}" data-price="{{ item.price }}" data-description="{{ item.description }}">More Info</button>
+
+                                </div> 
                               </div>
                            </div>
                            {% endfor %}
@@ -227,7 +222,7 @@
 
       <!-- fashion section end -->
       <!-- electronic section start -->
-      {% if category == "electronic_items" %}
+      {% if category == "electronics_items" %}
 
       <div class="fashion_section">
          <div id="electronic_main_slider" class="carousel slide" data-ride="carousel">
@@ -244,8 +239,9 @@
                                 <p class="price_text">Start Price  <span style="color: #262626;">{{ item.price }}</span></p>
                                 <div class="electronic_img"><img src="{{ url_for('static', filename='images/' + item.image) }}"></div>
                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    <div class="seemore_bt"><a href="#">See More</a></div>
+                                    <button class="add-to-cart-btn" data-id="{{ item_key }}" data-name="{{ item.name }}" data-image="{{ item.image }}" data-price="{{ item.price }}">Add to Cart</button>
+                                    <button class="more-info-btn" data-id="{{ item_key }}" data-name="{{ item.name }}" data-image="{{ item.image }}" data-price="{{ item.price }}" data-description="{{ item.description }}">More Info</button>
+
                                 </div>
                               </div>
                            </div>
@@ -284,9 +280,10 @@
                                     <p class="price_text">Start Price  <span style="color: #262626;">{{ item.price }}</span></p>
                                     <div class="jewellery_img"><img src="{{ url_for('static', filename='images/' + item.image) }}"></div>
                                     <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
-                                </div>
+                                       <button class="add-to-cart-btn" data-id="{{ item_key }}" data-name="{{ item.name }}" data-image="{{ item.image }}" data-price="{{ item.price }}">Add to Cart</button>
+                                       <button class="more-info-btn" data-id="{{ item_key }}" data-name="{{ item.name }}" data-image="{{ item.image }}" data-price="{{ item.price }}" data-description="{{ item.description }}">More Info</button>
+
+                                    </div>
                               </div>
                            </div>
                            {% endfor %}
@@ -335,6 +332,8 @@
       </div>
       <!-- copyright section end -->
       <!-- Javascript files-->
+      <script src="{{url_for('static', filename='js/index.js')}}"></script>
+
       <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
       <script src="{{url_for('static', filename='js/popper.min.js')}}"></script>
       <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
@@ -343,14 +342,6 @@
       <!-- sidebar -->
       <script src="{{url_for('static', filename='js/jquery.mCustomScrollbar.concat.min.js')}}"></script>
       <script src="{{url_for('static', filename='js/custom.js')}}"></script>
-      <script>
-         function openNav() {
-           document.getElementById("mySidenav").style.width = "250px";
-         }
-         
-         function closeNav() {
-           document.getElementById("mySidenav").style.width = "0";
-         }
-      </script>
+
    </body>
 </html>
