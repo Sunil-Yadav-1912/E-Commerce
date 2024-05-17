@@ -36,7 +36,7 @@ class database_operations:
         """
         db = Connection.get_connection()
         # ref = db.reference(collection_name)
-        path = "digital-deals/users/users2"
+        
         db.child(path).update(data)
         return True
 

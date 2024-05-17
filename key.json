@@ -1,0 +1,15 @@
+{
+    "type": "service_account",
+    "project_id": "digital-deals-1912",
+    "private_key_id": "45ab9be9b3d9c66dad7670e2f9b559b0040a7b42",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCOqHWa2NGZhbqk\nkdN6XIB0Zs6YtaAB2iZrmgbhwpb4C6LnH7k+Y2RVK1PE9rddZKXPxsUhggfjtsm6\nLNpPzcxD2avcJc/HVIwSbwFgurTIaqqB221qCMDcoP8Q1QoB/5OSxAR/JXeKPmr+\nujMpJaOdgsJhX70skXPF01ANJ2L2Grwqao0AyqcsQWedO1uWelG+t/7B7Ajvm5y/\ngwhOhbrgEcgf7g8S+DA/GJMyehVh/vKxPtHsw8wUTodP0KUUTtyBavAJxGYyOcuZ\nVdjBb/to3/7daXY9OkBfq7zFUiluRCiN/W3IVIcUhyVDe9HYZfsBWaPc6krMCq3M\n4p2jyWlFAgMBAAECggEACMFB5mzkAB365Fqmtd2zbHFawHh1B2gR74yWW4iLp1Ff\nf/usbK3A3JE6JN5XRn4ExwmV04adYVY4bxqNk1Q38voK2AniBIOlzQPO+9a5fYs+\nR5Xl0xoSa/fdb3UDljfPILSy6fKssWk/O77FoQLUVbhOoZc0juWmSz+6q/P82MmX\nw7ePM7u6I3oE6ihbLbQHuSYBp0iKyfjKf311C612dxYAJ6JWlxZ0rDrRPhW6oLOP\n6XH5LHnNrArXbnRk3MWhtK86uA+A8DdMuomVDbEIYn0rdsR7IYQNcALlGSex+dAL\nI5JXyUm1K1X+IR8vJYmww4mJymvOpVrxqeLH7he6iQKBgQDH7tgekjQBpXH7ne45\n/eYIXSjATmgwKmbzgqpGA5jRl/VqLVQFX6K4/iX/fFRHp4xIyr2vWleVuzCkmNQf\nbUAyVUQyg4VGziFG/0k4YAVPd6c28UKP4xKx/pSo3E2656UvEdaC+IPnBDr7ZVS5\nsfm26hPaZ4UUYVeKGfJTXnCHnwKBgQC2qdtQ0O6ectBqVMQSUPW1IQklaxnNJ0Da\nGlnvKER8BgM1voEzPJ+yZ41Hp/Se2sUdbK+PYn7qfLpe4H9NcGoJHjdTyI49UwW+\nqS2fiSD1zn9O3ULpiOzwA6GCZz+N33mdeL92nEpsDxPuWQpvTfW7CcJ0zoflwxJs\nFGwJjAU0mwKBgEF2MIkB8clANGvgL+oI+dJvPjKI+ZAbsg21EK9P6i9mA9K5+LKx\nt4O+ow5d1PKJJ2OGDkll2RuLaMfbykhn6wcP5/5qFa8zOq4WVBEDT3nPgY55vAOE\no9BnvKD1UPYLdohM3OGRIQ740Z8SdIVAgrSjO9Dc6DPeE12CVVd6qnmdAoGANea7\nlAaDU3hX7fijfzAqwU9FTqhjDbnWlkWOYldElkCD8/kKUR9DlLaf5xQ1yCaQYhVv\nXOVYxEMYD+U5S5WvhI9JDk0xRAFawZ9Umi4x7rcHtDLwis9f85dusndbNrdKQOCf\nxxVplKeCXyQhQyUDLTU9D5DeYzuEFSaVlt+drZ8CgYAh+i0tIa0vdXt7x4beySMy\nUAFcmDDEvnzo8ojEfL8ws5CPCKNUKi3ltpnx1PonZn/XCuAZiMgVzPOmBlVHZYYw\nmKljCBLCLwy/uE61S7EyQPUgC14ngCzrgy0otIhkioJCJxvLtOB8ogZwSQjh0zRB\n5QzGg3AC3Dyt6DsdxK780g==\n-----END PRIVATE KEY-----\n",
+    "client_email": "firebase-adminsdk-runja@digital-deals-1912.iam.gserviceaccount.com",
+    "client_id": "111420812897875188492",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-runja%40digital-deals-1912.iam.gserviceaccount.com",
+    "universe_domain": "googleapis.com",
+    "databaseURL": "https://digital-deals-1912-default-rtdb.asia-southeast1.firebasedatabase.app"
+  }
+  
